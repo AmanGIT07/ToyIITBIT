@@ -30,7 +30,7 @@ import java.util.Objects;
 public class SplashScreen extends AppCompatActivity {
 
     Intent intent;
-    String vName="1.0.0",vCode="1";
+    String curver="1.0.0",mobos="android";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +42,8 @@ public class SplashScreen extends AppCompatActivity {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        vName = packageInfo.versionName;
-        vCode =String.valueOf(packageInfo.versionCode);
+        curver = packageInfo.versionName;
+        //vCode =String.valueOf(packageInfo.versionCode);
 
         new accessNetwork().execute();
 
@@ -57,11 +57,11 @@ public class SplashScreen extends AppCompatActivity {
         @Override
         protected String doInBackground(Void... params) {
             try {
-                URL url = new URL("https://studytutorial.in/post.php");
+                URL url = new URL("https://peaceful-shelf-46289.herokuapp.com/versionupdate");
 
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.put("versionName",vName);
-                jsonObject.put("versionCode",vCode);
+                jsonObject.put("curver",curver);
+                jsonObject.put("mobos",mobos);
 
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setReadTimeout(12000);//millisecond
@@ -95,7 +95,7 @@ public class SplashScreen extends AppCompatActivity {
                     return stringBuffer.toString();
                 }
                 else
-                    return  new String("error:"+responseCode);
+                    return  new String("URL error:"+responseCode);
 
 
             } catch (MalformedURLException e) {
